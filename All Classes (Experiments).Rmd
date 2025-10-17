@@ -1,0 +1,1469 @@
+---
+title: "Final assignement"
+Author: KWIZERA Rene
+RegNO:101379
+output: html_document
+date: "2025-10-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+```{r}
+data1 <- read.table(text="
+Sept_2022 Oct_2022 Nov_2022 Dec_2022 Jan_2023 Feb_2023 Mar_2023 Apr_2023 May_2023 June_2023
+1 4 6 30 140 67 47 23 39 134 80
+2 10 2 29 164 72 81 28 63 211 132
+", header=TRUE)
+barplot(as.matrix(data1), main="Confirmed cases Vs Gender", beside=TRUE,
+        col=c("gold3","red"))
+legend("topright", c("Male","Female"), cex=0.5, bty="n", fill=c("gold3","red"))
+
+```
+```{r}
+data3 <- read.table(text="
+sept_2022 Oct_2022 Nov_2022 Dec_2022 Jan_2023 Feb_2023 Mar_2023 Apr_2023 May_2023 June_2023
+1 867 582 1802 12003 3059 9205 5346 7269 5933 324
+2 842 436 1805 11785 3508 10908 4902 7883 5901 464
+", header=TRUE)
+barplot(as.matrix(data3), main="COVID-19 test Vs Gender", beside=TRUE,
+        col=c("blue","purple"))
+legend("topleft", c("Male","Female"), cex=1.3, bty="n", fill=c("blue","purple"))
+
+```
+```{r}
+data2 <- read.table(text="
+Sept_2022 Oct_2022 Nov_2022 Dec_2022 Jan_2023 Feb_2023 Mar_2023 Apr_2023 May_2023 June_2023
+1 0 0 1 9 8 7 1 4 11 22
+2 11 3 41 242 104 78 44 86 244 147
+3 3 5 17 53 27 43 6 12 90 43
+", header=TRUE)
+barplot(as.matrix(data2), main="Confirmed cases Vs Age categories", beside=TRUE,
+        col=c("green","blue","purple"))
+
+legend("topleft", 
+       c("Less than 15 years","15-49 years","Above 50"), 
+       cex=1.3, bty="n", fill=c("green","blue","purple"))
+
+```
+```{r}
+months<-c("Sept_2022","Oct_2022","Nov_2022","Dec_2022", "Jan_2023","Feb
+_2023","Mar_2023","Apr_2023","May_2023","June_2023")
+Confirmed_covid<-c(14,8,59,304,139,128,51,102,345,212)
+plot(Confirmed_covid, type = "l",pch=21, col = "red",ylim=c(0,350),
+xaxt="n", ylab = "Number of patients ",
+main = "Confirmed cases Vs treatment ")
+treatment<- c(12,0,26,217,104,57,12,47,23,20)
+lines(treatment, col="blue",lty=2)
+legend("topleft", legend=c("Received treatment", "Confirmed"),cex=0.5,
+fill = c("blue","red"))
+axis(1,at=1:10,lab=c("Sept_2022","Oct_2022","Nov_2022","Dec_2022", "Jan
+_2023","Feb_2023","Mar_2023","Apr_2023","May_2023","June_2023"))
+```
+```{r}
+months<-c("sept_2022","Oct_2022","Nov_2022","Dec_2022", "Jan_2023","feb
+_2023","Mar_2023","Apr_2023","May_2023", "June_2023")
+number_of_test<-c(1709, 1018, 3607,23788,6567,20113,10248,15152,11834,
+7891)
+plot(number_of_test, type = "o", col = "blue",ylim=c(0,24000),
+xaxt="n", ylab = "Number of Test",
+main = "COVID 19 Test")
+axis(1,at=1:10,lab=c("Sept_2022","Oct_2022","Nov_2022","Dec_2022", "Jan
+_2023","Feb_2023","Mar_2023","Apr_2023","May_2023","June_2023"))
+```
+**ggplot2**
+
+ggplot2 provides a set of tools that allows you to visualize complex data sets in a new creative way -some work need some packages to get done. -some of the graph are created using R’s base graphics system
+```{r}
+###install.packages("ggplot2") library(ggplot2)
+library(ggplot2) 
+```
+####**let us explore the data mcars**
+
+```{r}
+data(mtcars)
+#dotchart(mtcars$mpg,labels=row.names(mtcars),ce#x = 0.,main="miles per Gallon of car #model",xlab = "MPG") 
+table(mtcars$cyl)
+```
+```{r}
+#barplot(mtcars$cyl)
+barplot(table(mtcars$cyl),
+        main="Distribution of car Cylinder counts",
+        xlab="Number of cylinders",
+        ylab="Number of cars")
+
+```
+```{r}
+barplot(table(mtcars$cyl),
+        main="Distribution of car Cylinder counts",
+        xlab="Number of cylinders",
+        ylab="Number of cars",
+        horiz=TRUE)
+
+```
+```{r}
+plot(mtcars$mpg~mtcars$wt,main="Automobile Data",xlab="Weight",ylab=" M
+iles per Gallon")
+```
+```{r}
+plot(mtcars$mpg ~ mtcars$wt,
+     main="Automobile Data",
+     xlab="Weight",
+     ylab="Miles per Gallon")
+
+plot(mtcars$mpg ~ mtcars$wt,
+     pch=17,
+     main="Automobile Data",
+     xlab="Weight",
+     ylab="Miles per Gallon")
+
+```
+```{r}
+plot(mtcars$mpg ~ mtcars$wt,
+     pch=21,
+     main="Automobile Data",
+     xlab="Weight",
+     ylab="Miles per Gallon")
+
+```
+```{r}
+plot(mtcars$mpg ~ mtcars$wt,
+     type="l",     # line plot
+     lty=2,        # dashed line
+     lwd=2,        # line width
+     col="red",
+     main="Automobile Data",
+     xlab="Weight",
+     ylab="Miles per Gallon")
+
+```
+**in ggplot2, plots are created by chaining together function using (+)sign. Each function modify the plot created up to that point**
+```{r}
+library(ggplot2)
+ggplot(data=mtcars, aes(x=wt,y=mpg))+geom_point()+
+labs(title = "Automobile Data",x="Weight",y="Miles per Galon")
+```
+```{r}
+library(ggplot2)
+ggplot(data = mtcars, aes(x = wt, y = mpg)) +
+  geom_point(pch = 17, color = "blue", size = 1) +
+  geom_smooth(method = "lm", color = "green") +
+  labs(title = "Automobile Data",x = "Weight",y = "Miles per Gallon")
+## `geom_smooth()` using formula = 'y ~ x'
+```
+```{r}
+f0<-ggplot(data=mtcars, aes(x=wt,y=mpg))+geom_point(shape=24, fill=1,size=1)+
+  geom_smooth(method="lm",color="blue") 
+f0
+## `geom_smooth()` using formula = 'y ~ x'
+
+```
+```{r}
+f1<-f0+theme_bw()
+f1
+## `geom_smooth()` using formula = 'y ~ x'
+```
+
+```{r}
+f2<-f1+
+theme(panel.grid = element_line(linetype = "dotted",color = "Black"))
+f2
+## `geom_smooth()` using formula = 'y ~ x'
+```
+**Grouping displays two or more groups of observations in a single plot**
+```{r}
+data(mtcars)
+mtcars$am<-factor(mtcars$am, levels =c(0,1),
+labels= c("Automatic","Manual"))
+mtcars$vs<-factor(mtcars$vs, levels =c(0,1),
+labels=c("V-Engine","Straight Engine"))
+mtcars$cyl<-factor(mtcars$cyl)
+ggplot(data=mtcars,aes(x=hp,y=mpg,shape=cyl,color=cyl))+
+geom_point(size=3)+
+facet_grid(vs~am)+
+labs(title = "Automobile Data by Engine Type",x="HorsePower",y="Miles
+per Gallon")
+```
+
+```{r}
+data(singer,package="lattice")
+ggplot(singer,aes(x=voice.part,y=height))+geom_boxplot()
+```
+###Use the following function:
+geom_bar() geom_boxplot() geom_density() geom_histogram() geom_hline() geom_jitter() geom_line() #geom_point() geom_rug() #geom_smooth() geom_text() geom_violin() geom_vline() ## Basic data management **cbind and rbind**
+
+While combining column wise, the number of rows must match but row names are ignored. when combining row-wise, both the number and the names of columns must match.
+
+```{r}
+data2<- data.frame(x=1:3, y=c("a","b","c"))
+str(data2)
+```
+
+```{r}
+(cbind(data2,data.frame(z=3:1)))
+```
+
+```{r}
+(rbind(data2,data.frame(x=10,y="z")))
+```
+### Create another Variable
+```{r}
+data_class<-read.table("C:/Users/HP/OneDrive/Desktop/AUCA/class_data.txt", header = TRUE)
+variable.names(data_class)
+```
+```{r}
+head(data_class,n=5)
+```
+```{r}
+tail(data_class)
+```
+```{r}
+data_class[,1]
+```
+```{r}
+summary(data_class$WEIGHT)
+```
+```{r}
+length(data_class$WEIGHT)
+```
+```{r}
+data_class[,-1]
+```
+```{r}
+attach(data_class)
+(BMI<-WEIGHT/(HEIGHT/100)^2)
+```
+```{r}
+(BMI<-round(WEIGHT/(HEIGHT/100)^2,digit=1))
+```
+```{r}
+head(cbind(data_class,BMI))
+```
+```{r}
+tail(cbind(data_class,BMI),n=10)
+```
+```{r}
+detach(data_class)
+```
+### Summary of BMI
+```{r}
+summary(BMI)
+```
+```{r}
+hist(data_class$HEIGHT)
+```
+```{r}
+hist(data_class$WEIGHT,col = "blue",main = "Sample Histogram")
+```
+```{r}
+stem(BMI,scale=2)
+```
+### Subsetting
+
+#### Use of $, []. or [[]]
+
+Creation of leadership data Interest: How men and women differ in the way they lead their organizations. 5 questions were asked in this study. Example of the question: Do men and women in management position differ in the degree to which they defer to superiors? 1: strongly disagree, 2: disagree, 3:neither agree nor disagree,4: agree, 5: strongly agree
+```{r}
+manager <- c(1,2,3,4,5)
+country<- c("US","US","UK","UK","UK") 
+gender<-c("M","F","F","M","F") 
+age<-c(32,45,25,39,99) 
+q1<-c(5,3,3,3,2) 
+q2<-c(4,5,5,3,2) 
+q3<-c(5,2,5,4,1) 
+q4<-c(5,5,5,NA,2) 
+q5<-c(5,5,2,NA,1)
+leadership<-data.frame(manager,country, gender, age, q1,q2,q3,q4,q5, 
+                       stringsAsFactors = FALSE)
+leadership<-data.frame(manager,country, gender, age, q1,q2,q3,q4,q5) str(leadership)
+
+```
+```{r}
+names(leadership)
+```
+What you can do - combine the score of the five questions -handle the missing values - create a dataset of what you want -create age group or age categories - 99 indicate the value is missing
+
+### Missing value
+```{r}
+leadership$age[leadership$age==99]<-NA
+leadership$agecat[leadership$age >75]<-"Elder"
+leadership$agecat[leadership$age>=35 & leadership$age<=75]<-"Middle Age
+d"
+leadership$agecat[leadership$age <35]<- "Young"
+```
+### One way to handle missing value
+Deleting all observations with missing data ( Listwise deletion) is one of the several methods of handling incomplete datasets. Note: You can also replacing the missing value by the average of the remaining data.
+
+```{r}
+is.na(leadership[,5:9])
+```
+```{r}
+newdata<-na.omit(leadership)
+newdata
+```
+### Sorting data
+```{r}
+order(leadership$age)
+```
+
+```{r}
+newdata2<-leadership[order(leadership$age),]
+```
+### Merging data sets
+
+To merge two data frame horizontally, you use merge() function. In most cases, two data frames are joined by one or more common key variables. -example 1: merge(dataframeA, dataframeB,by=“ID”) -example 2: merge(dataframeA,dataframeB, by=c(“ID”,“country”)) the second merge the two dataframes by ID and country
+
+To join two data frame( datasets) vertically, use rbind() function: Note that the two data set must have the same variables
+
+### Subset (selecting variables,dropping variables,selecting observation )
+
+```{r}
+newdata3<-leadership[,c(5:9)]
+myvars<-c("q1","q2","q3","q4","q5")
+newdata3<-leadership[myvars]
+newdata4<-leadership[,c(-1,-2)]
+newdata4<-leadership[,-(1:5)]
+newdata5<-leadership[,c(-1,-7)]
+leadership[[4]]
+```
+
+```{r}
+leadership$age
+```
+
+```{r}
+newdata6<-leadership[c(-1,-3),]
+newdata6<-leadership[c(2,4,5),]
+newdata7<-subset(leadership,age>=35|age<24,select=c(q1,q2,q3,q4,q5))
+attach(leadership)
+```
+
+```{r}
+#newdata7<-leadership[gender="M" & age>30,]
+newdata7<-leadership[gender=="M" & age>30,]
+detach(leadership)
+```
+
+### Data management with dyplr
+Data source from the package nycflights13 and ggplot2 This data contains all 336,776 flights that departed from New York city in 2013.
+
+### Data management with dyplr
+Data source from the package nycflights13 and ggplot2 This data contains all 336,776 flights that departed from New york city in 2013.
+
+```{r}
+#install.packages("nycflights13")
+#install.packages("tidyverse")
+library(nycflights13)
+```
+```{r}
+#install.packages("dplyr") 
+library(dplyr)
+```
+```{r}
+#library(tidyverse)
+```
+
+### The function filter()
+```{r}
+#rm(list = ls())
+str(flights)
+```
+```{r}
+#attach(flights)
+jan<-filter(flights,month==1)
+jan
+```
+```{r}
+newyear<-filter(flights,month==1, day==1)
+newyear
+```
+
+```{r}
+dec25<-filter(flights,month==12, day==25)
+dec25
+```
+
+```{r}
+jan_dec<-filter(flights,month==1|month==12)
+jan_dec
+```
+```{r}
+nov_dec<-filter(flights,month %in% c(11,12))
+#detach(flights)
+```
+
+### The function arrange()
+
+This change the order
+```{r}
+data_10<-arrange(flights,year,month,day)
+arrange(flights,desc(arr_delay))
+```
+
+### The function select
+This helps to selects only the variables you are interested in
+
+```{r}
+time_var<-select(flights, year,month, day)
+select(flights, year:day)
+```
+```{r}
+select(flights,-(year:day))
+```
+### The function mutate
+This is useful in adding a new Variable
+
+```{r}
+## create a small data set
+flights2<-select(flights,year:day,ends_with("delay"),distance,air_time)
+(mutate(flights2,gain=arr_delay-dep_delay, speed=distance/air_time*60))
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+### Important definitions in data science
+
+- **Statistics**
+- **Modelling**
+- **Computation**
+- **Calculus**
+
+### Today’s class,we will study
+Installation of R
+Installation of R studio
+Calculator in r
+Data importation in R
+Data description using numerical measures and graphs. 
+###Data structure (Vectors, Factors, Lists, Data frame, matrix and arrays)
+
+
+# Vector: The Foundational R Data Structure
+
+## Numeric
+```{r}
+x <- c(0.5, 0.6)
+age <- c(20,35,32,29)
+summary(age)
+
+```
+```{r}
+age <- c(35,24,18,24)
+mean(age)
+```
+
+## Logical
+```{r}
+x <- c(TRUE, FALSE)
+x <- c(T, F)
+```
+
+## Character
+```{r}
+x <- c("a", "b", "c")
+class <- c("M", "F", "F", "M")
+```
+
+## Integer
+```{r}
+x <- 9:29
+```
+
+## Complex
+```{r}
+x <- c(1+0i, 2+4i)
+```
+
+# Matrices and Operations
+```{r}
+x <- matrix(1:6, nrow = 2, ncol = 3)
+x
+
+```
+```{r}
+y <- matrix(1:6, nrow = 3, ncol = 2)
+y
+```
+
+```{r}
+x %*% y
+```
+
+# Lists
+```{r}
+x <- list(1, "a", TRUE, 1 + 4i)
+x
+```
+
+# Factors
+```{r}
+x <- factor(c("yes", "yes", "no", "yes", "no"))
+x
+```
+#Create a vector with NAs in it
+
+```{r}
+x <- c(1, 2, NA, 10, 3)
+x
+```
+
+Return a logical vector indicating which elements are NA
+```{r}
+is.na(x)
+## [1] FALSE FALSE TRUE FALSE FALSE
+x <- c(1, 2, 4, "NA", 5)
+bad <- is.na(x)
+print(bad)
+## [1] FALSE FALSE FALSE FALSE FALSE
+x[!bad]
+## [1] "1" "2" "4" "NA" "5"
+```
+
+What if there are multiple R objects and you want to take the subset with no missingvalues in any of those objects?
+
+```{r}
+x <- c(1, 2, NA, 4, NA, 5)
+y <- c("a", "b", NA, "d", NA, "f")
+good <- complete.cases(x, y)
+good
+## [1] TRUE TRUE FALSE TRUE FALSE TRUE
+```
+
+
+If character is present, in a vector, R convert everything in the vector to character
+strings. If a vector only contains logical and numbers, R will convert the logical to numbers, Every true becomes a 1, and and every FALSE becomes 0
+
+# Coercion
+```{r}
+sum(c(TRUE, TRUE, FALSE, FALSE, FALSE))
+```
+
+
+Create data
+Create data Using data frame Data frame is more general than matrix How???
+Because data frame can contain different modes of data (Numeric, character andsoon) Similar to what you can see
+# Creating Data Frames
+```{r}
+studentID <- c(1,2,3,4,5)
+math_score <- c(12,17,10,9,NA)
+gender <- c("M","F","M","M","F")
+it_score <- c(13,18,11,10,19)
+scoredata <- data.frame(studentID, gender, math_score, it_score)
+scoredata
+```
+
+# Create data from keyboard
+Steps 1. Create data frame (or matrix) with variable names 2. Invoke the text editor
+in the data objected created at first step
+
+```{r}
+#data_class2<-data.frame(height=numeric(0),weight=numeric(0),bmi=numeric(0))
+#data_class2<-edit(data_class2)
+```
+
+
+# Data Importation
+R has some features that can allow to import data from different sources ( It canbetext file, spreadsheet, or database)
+1. Data from excel
+2. Data statistical packages (SAS, SPSS, Stata)
+3. Data from Text files (ASCII, XML, Webscraping)
+4. Data from database management systems (SQL,MySQL, Oracle, Access)
+
+# HW1: Import data from Statistical package and from Database management systems
+```{r}
+data_class <- read.table("C:\\Users\\reception\\Downloads\\Data Files\\data_class.txt")
+colnames(data_class) <- data_class[1, ]
+data_class <- data_class[-1, ] 
+data_class[] <- lapply(data_class, as.integer)
+variable.names(data_class)
+head(data_class)
+tail(data_class)
+summary(data_class$WEIGHT)
+```
+
+In case you want to use data set built in R
+```{r}
+data("airquality")
+variable.names(airquality)
+str(airquality)
+```
+## Exploration data analysis
+#Examine numerical variable using common summary
+```{r}
+summary(data_class)
+
+```
+```{r}
+str(data_class)
+```
+
+# Summary Statistics
+```{r}
+summary(data_class)
+```
+```{r}
+summary(data_class)
+```
+
+```{r}
+apply(data_class,2,mean)
+```
+
+
+```{r}
+apply(data_class,2,sd)
+```
+
+```{r}
+c(mean(data_class$HEIGHT),sd(data_class$HEIGHT))
+```
+
+```{r}
+c(mean(data_class$WEIGHT),sd(data_class$WEIGHT))
+```
+
+```{r}
+c(Mean=mean(data_class$HEIGHT),SD=sd(data_class$HEIGHT))
+```
+
+
+```{r}
+c(Mean=mean(data_class$WEIGHT),SD=sd(data_class$WEIGHT))
+```
+#Variation and covariation using both numerical and graphs
+##Relationship between a categorical and a continuous variable
+```{r}
+data("iris")
+head(iris)
+```
+
+```{r}
+mean(iris$Petal.Length)
+```
+
+```{r}
+mean(iris$Petal.Length[iris$Species=="setosa"])
+```
+
+```{r}
+mean(iris$Petal.Length[iris$Species=="versicolor"])
+```
+
+```{r}
+mean(iris$Petal.Length[iris$Species=="virginica"])
+```
+
+```{r}
+## shortcut
+by(iris$Petal.Length,iris$Species,mean)
+```
+
+```{r}
+by(iris$Petal.Length,iris$Species,sd)
+```
+
+```{r}
+by(iris$Petal.Length,iris$Species,summary)
+```
+# Visualize the differences in continuous variables between categories using Box-and- whisker plot
+```{r}
+boxplot(iris$Sepal.Length~iris$Species,data=iris, main="Comparison")
+```
+
+# Relationship Between Two Categorical Variables
+```{r}
+ucba<-data.frame(UCBAdmissions)
+head(ucba)
+```
+```{r}
+cross<-xtabs(Freq~Gender+Admit,data=ucba)
+(cross<-xtabs(Freq~Gender+Admit,data=ucba))
+```
+
+```{r}
+## Is there gender bias in UCB graduate admission process?
+prop.table(cross,2)
+```
+#Simpson’s paradox
+
+Phenomenon, where a trend that appears in combined groups of data disappears or
+reverses when broken down into groups
+```{r}
+cross2<-xtabs(Freq~Gender+Admit,data=ucba[ucba$Dept=="A",])
+prop.table(cross2,1)
+```
+
+
+# Bar Chart
+```{r}
+dat <- read.table(text ="ProdA ProdB ProdC ProdD
+1 110 50 60 70
+2 120 50 80 65", header= TRUE)
+barplot(as.matrix(dat),beside=FALSE,col=c("Red","green"))
+```
+```{r}
+#barplot(as.matrix(dat),beside=TRUE,col=c("gold3","red"))
+dat <- read.table(text = "A B C D E F G
+1 10 80 30 90 70 60 90
+2 20 50 70 50 40 10 40
+3 60 80 80 60 60 30 160
+4 20 40 70 80 20 10 70", header = TRUE)
+barplot(as.matrix(dat))
+```
+
+# Scatter Plot
+```{r}
+plot(WEIGHT~HEIGHT,data=data_class)
+```
+```{r}
+plot(data_class$HEIGHT,data_class$WEIGHT)
+```
+```{r}
+plot(data_class[,1],data_class[,2])
+```
+
+```{r}
+cor(data_class$HEIGHT,data_class$WEIGHT)
+```
+
+# Linear Models
+```{r}
+plot(WEIGHT~HEIGHT,data=data_class)
+abline(lm(WEIGHT~HEIGHT,data=data_class)$coefficient)
+```
+```{r}
+data_lm<-lm(WEIGHT~HEIGHT,data=data_class)
+summary(data_lm)
+```
+
+
+```{r}
+hist(data_class$HEIGHT)
+```
+```{r}
+hist(data_class$WEIGHT,col = "blue")
+```
+# Linear with other line
+```{r}
+plot(WEIGHT~HEIGHT,data=data_class)
+abline(lm(WEIGHT~HEIGHT,data=data_class)$coefficient)
+lines(lowess(data_class$HEIGHT,data_class$WEIGHT),col="blue")
+```
+
+
+# Linear with other line
+```{r}
+cor(data_class$HEIGHT,data_class$WEIGHT)
+```
+
+```{r}
+model1<-lm(WEIGHT~HEIGHT,data=data_class)
+```
+
+
+##   Data management
+# Create another Variable
+```{r}
+attach(data_class)
+(BMI<-WEIGHT/(HEIGHT/100)^2)
+```
+
+```{r}
+(BMI<-round(WEIGHT/(HEIGHT/100)^2,digit=2))
+```
+
+```{r}
+head(cbind(data_class,BMI),n=5)
+```
+
+```{r}
+new_data_class<-cbind(data_class,BMI)
+tail(cbind(data_class,BMI),n=10)
+```
+
+# Summary of BMI
+```{r}
+summary(BMI)
+```
+
+```{r}
+stem(BMI,scale=2)
+```
+Class2_Cont
+## Control structures
+
+# Grouping
+
+Control structures in R allow you to control the flow of execution of a series of R
+expressions. Basically, control structures allow you to put some “logic” into your R
+code, rather than just always executing the same R code every time. Control
+structures allow you to respond to inputs or to features of the data and execute
+different R expressions accordingly. Commonly used control structures are • if and
+else: testing a condition and acting on it • for: execute a loop a fixed number of times
+• while: execute a loop while a condition is true • repeat: execute an infinite loop
+(must break out of it to stop) • break: break the execution of a loop • next: skip an
+interaction of a loop
+
+
+if (condition){ ## do something } ## continue with the rest of the code. if( condition){ do something
+} else { do something else
+}
+You can also create a series of test by following the initial if with a number of elseifsif(condition){ do something
+}else if (condition 2){ Do something different }else{ do something different }
+
+## Function on R
+```{r}
+f<-function(x) x^2
+formals(f)
+body(f)
+environment(f)
+
+
+```
+
+#ifelse(test,yes,No)
+```{r}
+pvalues<-c(.867,0.0054,0.0018,0.1572,0.0183,0.5386)
+results<-ifelse(pvalues<0.05,"Significant"," Not significant")
+results
+
+```
+
+
+```{r}
+x<-runif(1,0,10)
+if(x>3){
+y<-10
+}else {
+y<-0
+}
+```
+
+# The value of y is a set depending on whether x>3 or not. This can also be achieved
+```{r}
+y<-if (x>3){
+10
+}else {
+0
+
+}
+```
+
+## For
+```{r}
+for(i in 1:10){
+print(i)
+}
+x<-c("a","b","c","d")
+x[3]
+
+for(i in 1:5){
+print(x[i])
+}
+
+for(i in 1:5)print(1:i)
+for(i in 5:1)print(1:i)
+```
+## while Loops
+It begins by testing a condition, if it is true, then they execute the loop body. once the loop body is executed,the condition is tested again, until the condition is false. after
+which the loop exits.
+
+```{r}
+count<-1
+while (count<10){
+print(count)
+count<-count+1
+}
+
+z<-5
+set.seed(1)
+while(z>= 3 && z<=10){
+coin<-rbinom(1,1,0.5)
+if (coin==1){
+z=z+1
+} else {
+  z<-z-1
+}
+}
+print(z)
+
+```
+
+# next, break
+This is used to skip an iteration of a loop
+
+
+```{r}
+for (i in 1:100){
+print(1:i)
+if (i>20){
+  break
+}
+}
+
+```
+
+## Function
+functionname<-function(parameters){ statements return(value) }
+f1<-function(x){ result<-x^2+2 return(result) }
+f2<-function(x,y){ result<-x
+2+y2-4 return(result) }
+```{r}
+f<-function(x,y){
+result<-x+(2*y)+3
+return(result)
+}
+f(2,3)
+f(2,3)
+```
+
+You can use args() function to view the parameter names and default values
+##Exercises
+Make functions that calculate summary statistics
+Make a function to calculate two sample t test
+# Applying functions to matrices and data frame. a<-4
+
+```{r}
+a<-4
+sqrt(4)
+b<- c(1,243,5.754,2.987)
+round(b)
+c<-matrix(runif(12),nrow=3)
+c
+log(c)
+mean(c)
+
+```
+
+Notice that the mean of matrix c results in a scalar (0.444). the mean() take the
+average of all 12 elements in the matrix.But what if you want the three rowmeans
+or the four column means?
+R provides a function, apply() that allows to apply an arbitrary function to any
+dimension of a matrix, array or data frame. The format for the apply() functionis -
+apply(x, MARGIN, FUN,…) where x stands for the data object, Margin can be 1(rows)
+and 2(columns ) ## Col/Row Sums and Means • rowSums = apply(x, 1, sum) • rowMeans = apply(x, 1, mean) • colSums = apply(x, 2, sum) • colMeans = apply(x, 2, mean)
+
+## lappy function
+lapply() takes three inputs:,x,a list,a function, and…, It applies to each element of thelist and returns a new list. lapply(x,f,…). It is called function because it takes functionas an argument. Assume we have a data frame df. instead of assigning the result pf
+lappliy() to df, we will assign them to df[] to ensure we get a data frame
+
+
+```{r}
+fix_missing<-function(x){
+x[x==-99]<-NA
+x
+}
+function1<-function(x){
+x^2
+}
+curve(function1,-4,4)
+
+#df[]<-lappy(df,fix_missing)
+```
+
+It works for any number of columns.There is no way to accidentally miss a column
+There is no way to accidentally treat one column differently than another
+It easy to generalize this technique to a subset of columns.
+
+```{r}
+#df[1:5]<- lapply(df[1:5],fix_missing )
+```
+## sapply
+sapply() and vapply(), variants of lapply() that produces vectors,matrices, andarrays as Output, instead of lists map(), and mapply which iterate over multiple
+input data structures in parallel
+Another important function when dealing with big data is split() -tapply
+# Titanic data
+```{r}
+str(Titanic)
+```
+
+
+```{r}
+View(Titanic)
+apply(Titanic,c(1,2),sum )
+```
+
+
+```{r}
+options(digits = 2)
+apply(Titanic,c(1,2),sum)[3:4,]
+```
+
+
+```{r}
+apply(Titanic,c(1,4),sum)[3:4,]
+```
+
+
+```{r}
+apply(Titanic,c(1,2,4),sum)
+```
+
+
+```{r}
+```
+
+
+```{r}
+ftable(apply(Titanic,c(1,4,2),sum)[3:4,,])
+```
+```{r}
+ftable(apply(Titanic,c(1,4,2),sum)[3:4,,])[1:2,]
+```
+```{r}
+ftable(apply(Titanic,c(1,4,2),sum)[3:4,,])[3:4,]
+```
+digit=2
+```{r}
+prop.table(ftable(apply(Titanic,c(1,4,2),sum)[3:4,,])[1:2,], margin =2)
+```
+```{r}
+prop.table(ftable(apply(Titanic,c(1,4,2),sum)[3:4,,])[1:2,], margin =2)
+```
+```{r}
+prop.table(ftable(apply(Titanic,c(1,4,2),sum)[3:4,,])[3:4,], margin =2)
+```
+```{r}
+matrix(prop.table(ftable(apply(Titanic,c(1,4,2),sum)[3:4,,])[1:2,], margin = 2),nrow = 2, dimnames = list(dimnames(Titanic)$Survived,dimnames(Titanic)$Sex))
+```
+
+
+```{r}
+matrix(prop.table(ftable(apply(Titanic,c(1,4,2),sum)[3:4,,])[3:4,], margin = 2),nrow = 2, dimnames = list(dimnames(Titanic)$Survived,dimnames(Titanic)$Sex))
+```
+
+
+### Create dataset
+```{r}
+Student<-c("John ncuti", "Angela bakame", "Bruce wizeye","Alexis aganze", "claude Rukundo", "Joel Kagabo", "Mary ineza")
+Math<-c(600,412,358,495,512,410,522)
+Science<-c(95,99,80,82,75,89,77)
+English<-c(25,22,18,20,29,30,27)
+roster<-data.frame(Student,Math,Science,English,stringsAsFactors = FALSE)
+```
+
+### standardize variables and obtains the performance scores becausethey are reported on different scale( With widely differing means and standard deviations, we need to make them comparable before we combine them.)
+```{r}
+z<-scale(roster[,2:4])
+```
+
+
+### performance of each students using rowmeans and adding them to roster using cbind()
+```{r}
+score<-apply(z,1,mean)
+roster<-cbind(roster,score)
+```
+
+
+### Grades the students: quantile function gives the percentile rankof each student's performance score check the cutoff of A
+```{r}
+y<-quantile(score,c(.8,.6,.4,.2))
+```
+
+
+## create a grade variable us
+```{r}
+roster$grade[score>=y[1]]<-"A"
+roster$grade[score<y[1]&score>=y[2]]<-"B"
+roster$grade[score<y[2]& score>=y[3]]<-"C"
+roster$grade[score<y[3]& score>=y[4]]<-"D"
+roster$grade[score<y[4]]<-"F"
+```
+
+
+#### Dealing with names
+```{r}
+name<-strsplit((roster$Student),"")
+lastname<-sapply (name,"[",2)
+firstname<-sapply(name,"[",1)
+roster<-cbind(firstname, lastname,roster[,-1])
+roster<-roster[order(lastname,firstname),]
+roster
+```
+
+
+## Aggregation and reshaping
+# transpose
+
+```{r}
+cars<-mtcars[1:5, 1:4]
+cars
+t(cars)
+```
+# aggregate data
+aggregate() collapse data in R using one or more by variables and a defined function
+
+```{r}
+options(digits=3)
+attach(mtcars)
+aggdata<-aggregate(mtcars,by=list(cyl,gear),FUN=mean,na.rm=TRUE)
+```
+
+# Reshape
+Step 1: install the package reshape2 step 2: melt data step 3: Cast the melted datainto any shape you desire
+During the cast, you can aggregate the data with any function you wish. 
+
+```{r}
+id<-c(1,1,2,2)
+time<-c(1,2,1,2)
+x1<-c(5,3,6,2)
+x2<-c(6,5,1,4)
+mydata<-data.frame(id,time,x1,x2)
+
+```
+
+# Regression
+
+Regression is a set of methodologies used to analyze the relationship between dependent (outcome variable or response variable) and independent variables (inputs or explanatory variables). Regression can be used to provide an equation for predicting the response from explanatory variables.
+
+## Varieties of regression analysis and their use
+
+- **Simple Linear:** Predicting a quantitative response variable from a quantitative explanatory variable  
+- **Polynomial:** Predicting a quantitative response variable from a quantitative explanatory variable where the relationship is modeled as an nth order polynomial  
+- **Multiple Linear:** Predicting a quantitative from two or more explanatory variables.  
+- **Multilevel:** Predicting a response variable from data that have hierarchical structure  
+- **Multivariate:** Predicting more than one response variable from one or more explanatory variables.  
+- **Logistic:** Predicting a categorical response variable from one or more explanatory variables.  
+- **Poisson:** Predicting a response variable representing counts from one or more variables  
+- **Cox proportional hazards:** Predicting time to event (death, failure, relapse) from one or more explanatory variables.  
+- **Time-series:** Modelling time series data with correlated errors.  
+- **Nonlinear:** Predicting a quantitative response variable from one or more explanatory variables where the form of the models is nonlinear.  
+- **Nonparametric:** Predicting a quantitative response from one or more explanatory variables, where the form of the model is derived from the data and not specified a priori.  
+- **Robust:** Predicting a quantitative response variable from one or more explanatory variables using an approach that is resistant to the effect of influential observations.
+
+## Little explanation on Linear model
+
+- It can be used to predict a continuous variable  
+- It can be expressed as `y = mx + b` where `b` is the y-intercept and `m` is the slope  
+- It can also be written as `y = b0 + b1x`  
+- The errors in the prediction are called residuals  
+- The line of the best fit minimizes the error  
+- The residuals are squared and summed up (Residual Sum of Squares: RSS)  
+- Mean Square Error (MSE), Root Mean Square Error (RMSE)  
+- The fitted model is the model (from a family of models) that is closest to your data.  
+- “All models are wrong, but some are useful.”
+
+## OLS Regression
+
+Regressing the response variable on the predictor variables) the goal: To select
+model parameters ( intercept and slopes) that minimize the difference between
+actual response and the predicted by the model.
+Assumption 
+- 1. Normality: For fixed value of the independent values, the dependent
+variable is normally distributed 
+- 2. Independence: The Yi values are independent of
+each other 
+- 3. Linearity: The dependent variable is linearly related to the
+independent variables 
+- 4. Homoscedasticity: The variance of the dependent variable
+does not vary with the levels of the independent variables.
+Note: If you violate these assumptions, your statistical significance tests, and
+confidence may not be accurate.
+
+# Fitting regression models with lm()
+
+# Simple linear regression
+
+```{r}
+data("women")
+fit <- lm(weight ~ height, data = women)
+summary(fit)
+women$weight
+
+fitted(fit)
+
+residuals(fit)
+
+plot(women$height, women$weight, xlab = "Height (in inches)", ylab = "Weight (in pounds)")
+abline(fit)
+```
+The plot suggests that you might be able to improve on the prediction by using a line
+with one bend. WE can fit the polynomial regression
+
+## Polynomial Regression
+
+```{r}
+fit2 <- lm(weight ~ height + I(height^2), data = women)
+summary(fit2)
+plot(women$height, women$weight, xlab = "Height", ylab = "Weight")
+lines(women$height, fitted(fit2))
+```
+
+## Multiple Linear Regression
+When we have more than one predictor variable, simple linear regression becomes
+multiple linear regression, and the analysis grows more involved.
+
+HW: Find a dataset on which you can fit multiple linear regression and interpret your results.
+
+## Regression Diagnostics
+In this section you want to know if the model you have applied is appropriate. The
+most common approach is to apply the plot() function to the object returned by the
+lm(). This produces four graphs that are useful for evaluating the model fit.
+
+```{r}
+fit <- lm(weight ~ height, data = women)
+par(mfrow = c(2, 2))
+plot(fit)
+
+newfit<-lm(weight~height+I(height^2),data=women[-c(13,15),])
+par(mfrow=c(2,2))
+plot(newfit)
+```
+# Outliers
+The car package also provides a statistical test outliers. the function is
+“outlierTest()”
+
+
+## Corrective Measures
+
+What do you do if you identify problems? They are four approaches to dealing with
+violations of regression assumptions:
+1. Deleting observations ( influentials observation like outliers)
+2. Transforming variables ( transform response like y^(r))
+3. Adding or deleting variables ( sometimes to deal with multicolinearity)
+4. Using another regression approach (Like robust regression, etc…)
+
+#Selecting the best regression model
+
+Shoud you include all variables under study? should you add polynomial or
+interactions terms to improve the fit? you make a decision based on predictive
+accuracy and simple and replicable model.
+HW: Read about variable selection methods
+
+# Exploration of mtcars data
+
+```{r}
+plot(mpg ~ wt, data = mtcars)
+model <- lm(mpg ~ wt, data = mtcars)
+# plot(model)
+abline(model)
+summary(model)
+```
+The results show three blocks Block 1: How the model was built Block 2: Five
+number summary of residuals Block 3: Coefficients and estimates
+These are beta coefficients that minimize the RSS b0=37.285 and b1=-5.345
+y=37.285+(-5.345)x
+interpretation of b: for every unit of independent variable, the dependent variable
+goes down ( Because its negative) 5.345 which are miles per gallon).
+Multiple R-squared is like MSE, measure how good of a fit the model is. R^2 of 1
+indicates a perfect fit with no residual error, 0 indicate the worst possible fit.
+```{r}
+predict(model, newdata = data.frame(wt = 6))
+```
+
+## Simulation in R
+
+Simulation is an important (and big) topic for both statistics and for a variety of
+other areas where there is a need to introduce randomness. Sometimes you want to
+implement a statistical procedure that requires random number generation or
+sample (i.e. Markov chain Monte Carlo, the bootstrap, random forests, bagging) and
+sometimes you want to simulate a system and random number generators can be
+used to model random inputs
+Generation of random numbers
+We can simulate from probability distribution
+dnorm(x, mean = 0, sd = 1, log = FALSE)
+pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+This gives a normal probability plot, The points in this plot will lie approximately on
+a straight line if the distribution is normal.
+rnorm(n, mean = 0, sd = 1) or rnorm() This generate random number from standard
+normal distribution.
+```{r}
+x <- rnorm(10)
+pnorm(2)
+## [1] 0.9772499
+x <- rnorm(10, 20, 2)
+```
+# Setting the random number seed
+When simulating any random numbers it is essential to set the random number seed.
+Setting the random number seed with set.seed() ensures reproducibility of the
+sequence of random numbers.
+
+```{r}
+set.seed(1)
+rnorm(5)
+```
+
+#Simulaton a linear model
+
+
+```{r}
+## Always set your seed!
+set.seed(20)
+x <- rnorm(100)
+e <- rnorm(100, 0, 2)
+y <- 0.5 - 2 * x + e
+plot(x, y)
+```
+```{r}
+set.seed(1)
+sample(1:10, 4)
+sample(1:10, 4)
+## [1] 2 7 3 6
+## Doesn't have to be numbers
+sample(letters, 5)
+## [1] "r" "s" "a" "u" "w"
+## Do a random permutation
+sample(1:10)
+## [1] 10 6 9 2 1 5 8 4 3 7
+sample(1:10)
+## [1] 5 10 2 8 6 1 4 3 9 7
+## Sample w/replacement
+sample(1:10, replace = TRUE)
+## [1] 3 6 10 10 6 4 4 10 9 7
+```
+# Explore the modelr package.
+## Data Visualization
+
+# Data source:
+# https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(PPP)_per_capita
+
+```{r}
+country <- c("Australia", "Austria", "Belgium","Canada", "Denmark", "Finland","France","Germany",
+"Greece","Ireland","Italy","Japan", "Netherland","New Zealand", "Norway", "Portugal", "Spain",
+"Sweden","Switzerland","UK","USA")
+
+Income.inequality <- c(7.0,4.8,4.6,5.6,4.3,3.7,5.6,5.2,6.2,6.0,6.7,3.4,5.3,6.8,3.9,8.0,5.5,4.0,5.7,7.2,8.6)
+Index.HS <- c(0.07,0.01,-0.23,-0.07,-0.19,-0.43,0.05,-0.06,0.38,0.25,-0.12,-1.26,-0.51,0.29,-0.63,1.18,-0.30,-0.83,-0.46,0.79,2.02)
+GDP_WB <- c(45926,47682,43435,45066,45537,30676,39328,46401,26851,49393,35463,36319,48253,37679,65615,28760,33629,45297,59540,40233,54630)
+
+data.21 <- data.frame(country, Income.inequality, Index.HS, GDP_WB)
+plot(data.21[c("Income.inequality", "Index.HS")])
+```
+```{r}
+Index_inequality.df<-data.21[c("Income.inequality","Index.HS")]
+str(Index_inequality.df)
+## 'data.frame': 21 obs. of 2 variables:
+## $ Income.inequality: num 7 4.8 4.6 5.6 4.3 3.7 5.6 5.2 6.2 6 ...
+## $ Index.HS : num 0.07 0.01 -0.23 -0.07 -0.19 -0.43 0.05 -0.
+
+(country<-data.21[,"country"])
+## [1] "Australia" "Austria" "Belgium" "Canada" "Denmark"
+
+(country.2<-data.21["country"])
+str(country)
+str(country.2)
+plot(Index_inequality.df,pch=20)
+text(Index_inequality.df,labels=country)
+## country
+## 1 Australia
+## 2 Austria
+## 3 Belgium
+## 4 Canada
+## 5 Denmark
+
+```
+```{r}
+plot(Index_inequality.df,pch=20)
+text(Index_inequality.df,labels=country,pos=3)
+```
+```{r}
+plot(Index_inequality.df,pch=20)
+text(Index_inequality.df,labels=country,pos=4)
+```
+```{r}
+plot(Index_inequality.df,pch=20)
+text(Index_inequality.df,labels=country,pos=4,cex=0.8)
+```
+```{r}
+text                                                   
+which(country %in% c("Austria","Denmark","Germany","Netherland"))
+## [1] 2 5 8 13
+text.left<-which(country %in% c("Austria","Denmark","Germany","Netherla
+nd"))
+text.left
+## [1] 2 5 8 13
+text.right<-setdiff(1:nrow(data.21),text.left)
+text.right
+## [1] 1 3 4 6 7 9 10 11 12 14 15 16 17 18 19 20 21
+pos.text<-ifelse(1:nrow(data.21)%in% text.left,2,4)
+plot(Index_inequality.df,pch=20,col="red",xlim=c(3,9),ylim=c(-1.5,2.5))
+text(Index_inequality.df,labels=country,pos=pos.text,cex=0.8)
+```
+```{r}
+which(country %in% "Germany")
+## [1] 8
+text.up<-which(country %in% "Germany")
+text.up
+## [1] 8
+text.left<-setdiff(1:nrow(data.21),c(text.right,text.up))
+text.left
+## [1] 2 5 13
+pos.text<-ifelse(1:nrow(data.21) %in% text.up,3,ifelse(1:nrow(data.21)%in% text.left,2,4))
+plot(Index_inequality.df,pch=20,col="red",xlim=c(3,9),ylim=c(-1.5,2.5),
+ann=FALSE)
+text(Index_inequality.df,labels = country,pos=pos.text,cex=0.8)
+main.title<-"Income inequality vs Index of Health and Social problems"
+x.lab<-"Income inequality (5th Ratio)"
+y.lab<-"Index of Health and Social problems"
+title(main=main.title,xlab=x.lab,ylab=y.lab)
+```
+```{r}
+plot(Index_inequality.df,pch=20,col="red",xlim=c(3,9),ylim=c(-1.5,2.5),
+ann=FALSE)
+text(Index_inequality.df,labels = country,pos=pos.text,cex=0.8)
+main.title<-"Income inequality vs Index of Health and Social problems"
+x.lab<-"Income inequality (5th Ratio)"
+y.lab<-"Index of Health and Social problems"
+title(main=main.title,xlab=x.lab,ylab=y.lab)
+mtext(c("Better","Worse"),side=2,at=c(-1.8,2.8),las=1)
+```
+```{r}
+plot(Index_inequality.df,pch=20,col="red",xlim=c(3,9),ylim=c(-1.5,2.5),
+ann=FALSE)
+text(Index_inequality.df,labels = country,pos=pos.text,cex=0.8)
+main.title<-"Income inequality vs Index of Health and Social problems"
+x.lab<-"Income inequality (5th Ratio)"
+y.lab<-"Index of Health and Social problems"
+title(main=main.title,xlab=x.lab,ylab=y.lab)
+mtext(c("Better","Worse"),side=2,at=c(-1.8,2.8),las=1)
+text(x=5,y=1.5,labels=paste("r=",round(cor(Index_inequality.df[1],Index_inequality.df[2]),digits=2)))
+```
+```{r}
+plot(Index_inequality.df,pch=20,col="red",xlim=c(3,9),ylim=c(-1.5,2.5),
+ann=FALSE)
+text(Index_inequality.df,labels = country,pos=pos.text,cex=0.8)
+main.title<-"Income inequality vs Index of Health and Social problems"
+x.lab<-"Income inequality (5th Ratio)"
+y.lab<-"Index of Health and Social problems"
+title(main=main.title,xlab=x.lab,ylab=y.lab)
+mtext(c("Better","Worse"),side=2,at=c(-1.8,2.8),las=1)
+text(x=5,y=1.5,labels=paste("r=",round(cor(Index_inequality.df[1],Index_inequality.df[2]),digits=2)))
+lm.ineq<-lm(Index.HS~Income.inequality,data=Index_inequality.df)
+abline(lm.ineq$coef,col="blue")
+```
+```{r}
+rm(list=ls(all=TRUE))
+###set.seed(1002)
+n <-30 ## number of observations
+M <- 1 ## number of pathways
+p<-5
+z <- matrix(runif(n * p, 0, 1), nrow=n, ncol=p)
+x <- 3*cos(z[, 1]) + 2*rnorm(n)
+x<-as.matrix(x)
+beta.true <- rep(1,ncol(x))
+## pathway-response function
+hfun1 <- function(zvec) (10*cos(zvec[1]) - 15*(zvec[2])^2+10*exp(-zvec
+[3])*zvec[4]-8*sin(zvec[5])*cos(zvec[3])+20*(zvec[1]*zvec[5]))
+h1 <- apply(z, 1, hfun1) ## only depends on z1,z2,z3,z4,z5
+eps <- rnorm(n)
+y <-x * beta.true + h1+ eps
+
